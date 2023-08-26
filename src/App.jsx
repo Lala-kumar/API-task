@@ -7,8 +7,6 @@ import useHTTP from "./hooks/useHTTP";
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  console.log("APP RUNNING");
-
   const { isLoading, error, sendRequest } = useHTTP();
 
   useEffect(() => {
