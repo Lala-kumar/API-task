@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
@@ -10,21 +9,23 @@ function App() {
 
   console.log("APP RUNNING");
 
-  const transformTask = useCallback((taskObj) => {
-    const loadedTask = [];
-
-    for (const key in taskObj) {
-      loadedTask.push({ id: key, text: taskObj[key].text });
-    }
-    setTasks(loadedTask);
-  }, []);
-
-  const { isLoading, error, sendRequest } = useHTTP(transformTask);
+  const { isLoading, error, sendRequest } = useHTTP();
 
   useEffect(() => {
-    sendRequest( {
-      url: "https://react-http-17483-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
-    });
+    const transformTask = (taskObj) => {
+      const loadedTask = [];
+
+      for (const key in taskObj) {
+        loadedTask.push({ id: key, text: taskObj[key].text });
+      }
+      setTasks(loadedTask);
+    };
+    sendRequest(
+      {
+        url: "https://react-http-17483-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json",
+      },
+      transformTask
+    );
   }, [sendRequest]);
 
   const taskAddHandler = (task) => {
