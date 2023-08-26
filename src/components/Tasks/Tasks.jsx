@@ -4,7 +4,6 @@ import classes from './Tasks.module.css';
 
 const Tasks = (props) => {
   let taskList = <h2>No tasks found. Start adding some!</h2>;
-
   if (props.items.length > 0) {
     taskList = (
       <ul>
